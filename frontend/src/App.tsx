@@ -18,7 +18,7 @@ import { Item, CATEGORIES } from "./types";
 
 
 const DEFAULT_IMAGE_PLACEHOLDER = "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&auto=format&fit=crop&q=80";
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? (import.meta.env.DEV ? "http://localhost:8000" : "");
 
 export default function App() {
   // --- STATE ---
@@ -81,7 +81,7 @@ export default function App() {
     } catch (err: any) {
       console.error("Fetch error:", err);
       setErrorMessage(
-        "Could not connect to the FastAPI backend at ${API_BASE_URL}. Please make sure your server is running and CORS is enabled"
+        `Could not connect to the FastAPI backend at ${API_BASE_URL || window.location.origin}. Please make sure your server is running and CORS is enabled`
       );
     } finally {
       setLoading(false);
